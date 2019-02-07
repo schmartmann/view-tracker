@@ -1,19 +1,23 @@
-import express from 'express';
-import { json as parseJsonBody } from 'body-parser';
-
-const router = express.Router();
-const app    = express();
-
-app.use( parseJsonBody() );
-app.use( '/api', router );
+import { createServer } from 'http';
+import handler from './routes';
+import config from '../config';
 
 const PORT = config.port || process.env.port || 3000;
 
-app.listen(
-  PORT,
-  () => {
-    console.log(
-      `*frasier crane voice* Hello localhost:${ PORT }. I'm listening.`
-    );
-  }
-);
+const server =
+  createServer( handler ).
+    on(
+        'listening',
+        () => {
+          const { port } = server.address();
+          console.log(
+            `*frasier crane voice* Hello localhost:${ PORT }. I'm listening.`
+          );
+        }
+      ).
+      on(
+        'close',
+        () => console.log( 'Goodnight, Seattle' )
+      )
+
+server.listen(PORT);
