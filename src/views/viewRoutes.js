@@ -11,7 +11,7 @@ router.post(
   '/:videoId/views',
   ( req, res ) => {
     db.
-      writeView( req.params ).
+      writeView( req.params.videoId ).
       then(
         view => res.json( view )
       ).

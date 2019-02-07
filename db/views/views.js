@@ -1,21 +1,21 @@
 import { db } from '../db';
 
-export const writeView = ( params ) => {
+export const writeView = ( id ) => {
   return new Promise(
     ( resolve, reject ) => {
-      videoViewCount( params.videoId ).
+      videoViewCount( id ).
       then(
         viewCount => {
 
           viewCount.count++;
 
           const sqlCommand =
-            'INSERT INTO views( video_id, view_count ) VALUES( $1, $2 ) ' +
-            'RETURNING id, video_id, view_count';
+            'INSERT INTO views( video_id, view_count, viewed ) VALUES( $1, $2, $3 ) ' +
+            'RETURNING id, video_id, view_count, viewed';
 
           db.one(
             sqlCommand,
-            [ params.videoId, viewCount.count ]
+            [ id, viewCount.count, new Date() ]
           ).
           then(
             view => resolve( view )
@@ -45,3 +45,8 @@ const videoViewCount = ( id ) => {
     }
   );
 };
+
+
+const queryViews = ( id ) => {
+
+}
