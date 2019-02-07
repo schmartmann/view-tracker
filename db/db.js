@@ -1,6 +1,7 @@
-import { queryVideo } from './videos/videos';
+import { queryVideo, writeVideo } from './videos/videos';
 // import views from './views/views';
 
 module.exports = {
-  queryVideo
+  queryVideo,
+  writeVideo
 };

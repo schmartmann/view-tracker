@@ -23,29 +23,31 @@ export const queryVideo = ( videoId ) => {
 };
 
 
-const writeVideo = ( req, res, next ) => {
-  const { name, brand, published } = req.body;
+export const writeVideo = ( params ) => {
+  const { name, brand, published } = params;
+  return { id: 1, name: name, brand: brand, published: published }
+  // const { name, brand, published } = req.body;
 
-  const newVideo = new Video( name, brand, published );
+  // const newVideo = new Video( name, brand, published );
 
-  const sqlCommand =
-    'INSERT INTO videos(name,brand,published) VALUES($1, $2) ' +
-    'RETURNING id, name, brand, published';
+  // const sqlCommand =
+  //   'INSERT INTO videos(name,brand,published) VALUES($1, $2) ' +
+  //   'RETURNING id, name, brand, published';
 
-  db.one(
-    sqlCommand,
-    [ name, brand, published ]
-  ).
-  then(
-    video => {
-      console.log( video );
-      res.video = video;
-      next();
-    }
-  ).
-  catch(
-    error => console.log( error )
-  );
+  // db.one(
+  //   sqlCommand,
+  //   [ name, brand, published ]
+  // ).
+  // then(
+  //   video => {
+  //     console.log( video );
+  //     res.video = video;
+  //     next();
+  //   }
+  // ).
+  // catch(
+  //   error => console.log( error )
+  // );
 };
 
 

@@ -11,7 +11,10 @@ export const register = ( app ) => {
 router.post(
   '/',
   ( req, res ) => {
-    res.send( 'create new video')
+    const { body } = req;
+    const video = db.writeVideo( body );
+
+    res.send( video );
   }
 );
 
