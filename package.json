@@ -39,6 +39,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.15.3",
     "nodemon": "^1.18.9",
+    "pg-promise": "^8.5.5",
     "pryjs": "^1.0.3"
   }
 }
