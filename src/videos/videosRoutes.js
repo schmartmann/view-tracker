@@ -16,11 +16,11 @@ router.post(
     db.
       writeVideo( body ).
       then(
-        video => {
-          console.log( "video that should be returned", video )
-          res.send( video );
-        }
-      )
+        video => res.send( video )
+      ).
+      catch(
+        error => res.send( error )
+      );
   }
 );
 
@@ -28,8 +28,14 @@ router.get(
   '/:id',
   ( req, res ) => {
     const { id } = req.params;
-    const video = db.queryVideo( id );
-    res.send( video );
+    db.
+      queryVideo( id ).
+      then(
+        video => res.send( video )
+      ).
+      catch(
+        error => error
+      )
   }
 );
 

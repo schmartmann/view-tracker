@@ -5,21 +5,16 @@ const pgp = require( 'pg-promise' )();
 const db  = pgp( config.databaseUrl || process.env.DATABASE_URL );
 
 export const queryVideo = ( videoId ) => {
-  // return { id: 1, name: "shut up", brand: "shut up", published: new Date() }
-  // db.one(
-  //   "SELECT * FROM videos WHERE video_id=$1",
-  //   [ videoId ]
-  // ).
-  // then(
-  //   video => {
-  //     console.log( video );
-  //     res.video = video;
-  //     next();
-  //   }
-  // ).
-  // catch(
-  //   error => console.log( error )
-  // );
+
+  return db.one(
+    "SELECT * FROM videos WHERE id = ( $1 )", videoId
+  ).
+  then(
+    video => video
+  ).
+  catch(
+    error => error
+  );
 };
 
 
@@ -40,7 +35,7 @@ export const writeVideo = ( params ) => {
     video => video
   ).
   catch(
-    error => console.log( error.detail )
+    error => error
   );
 };
 
