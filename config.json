@@ -1,4 +1,4 @@
 {
   "port": 3000,
-  "database_url": "blah"
+  "databaseUrl": "postgres://dasboogaloo@localhost:5432/video_views"
 }

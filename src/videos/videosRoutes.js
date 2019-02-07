@@ -12,9 +12,15 @@ router.post(
   '/',
   ( req, res ) => {
     const { body } = req;
-    const video = db.writeVideo( body );
 
-    res.send( video );
+    db.
+      writeVideo( body ).
+      then(
+        video => {
+          console.log( "video that should be returned", video )
+          res.send( video );
+        }
+      )
   }
 );
 
