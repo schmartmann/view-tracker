@@ -2,6 +2,7 @@ import express from 'express';
 import { HttpError } from '../errors';
 
 const router = express.Router();
+const db     = require( '../../db/db' );
 
 export const register = ( app ) => {
   app.use( '/videos', router );
@@ -11,6 +12,15 @@ router.post(
   '/',
   ( req, res ) => {
     res.send( 'create new video')
+  }
+);
+
+router.get(
+  '/:id',
+  ( req, res ) => {
+    const { id } = req.params;
+    const video = db.queryVideo( id );
+    res.send( video );
   }
 );
 

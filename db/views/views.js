@@ -2,7 +2,7 @@ import { View } from './view';
 import config from '../../config';
 
 const pgp = require( 'pg-promise' )();
-const db  = pgp( config.databse_url || process.env.DATABASE_URL );
+// const db  = pgp( config.databse_url || process.env.DATABASE_URL );
 
 const writeView = ( req, res, next ) => {
   const { videoId } = req.body;
