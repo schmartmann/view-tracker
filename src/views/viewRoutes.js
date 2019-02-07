@@ -8,12 +8,12 @@ export const register = ( server ) => {
 };
 
 router.post(
-  '/',
+  '/:videoId/views',
   ( req, res ) => {
     db.
-      writeVideo( req.body ).
+      writeView( req.params ).
       then(
-        video => res.json( video )
+        view => res.json( view )
       ).
       catch(
         error => res.status( 400 ).send( error.message )
@@ -21,17 +21,4 @@ router.post(
   }
 );
 
-router.get(
-  '/:id',
-  ( req, res ) => {
-    db.
-      queryVideo( req.params.id ).
-      then(
-        video => res.json( video )
-      ).
-      catch(
-        error => res.status( 400 ).send( error.message )
-      );
-  }
-);
 
