@@ -1,8 +1,8 @@
 import express from 'express';
-import { HttpError } from '../errors';
+import pry from 'pryjs'
 
 const router = express.Router();
-const db     = require( '../../db/db' );
+import db from '../../db/db';
 
 export const register = ( app ) => {
   app.use( '/videos', router );
@@ -11,15 +11,13 @@ export const register = ( app ) => {
 router.post(
   '/',
   ( req, res ) => {
-    const { body } = req;
-
     db.
-      writeVideo( body ).
+      writeVideo( req.body ).
       then(
-        video => res.send( video )
+        video => res.json( video )
       ).
       catch(
-        error => res.send( error )
+        error => res.status( 400 ).send( error.message )
       );
   }
 );
@@ -27,21 +25,27 @@ router.post(
 router.get(
   '/:id',
   ( req, res ) => {
-    const { id } = req.params;
     db.
-      queryVideo( id ).
+      queryVideo( req.params.id ).
       then(
-        video => res.send( video )
+        video => res.json( video )
       ).
       catch(
-        error => error
-      )
+        error => res.status( 400 ).send( error.message )
+      );
   }
 );
 
 router.post(
-  '/:id/views',
+  '/:videoId/views',
   ( req, res ) => {
-    res.send( 'create a new view record, kay?' )
+    db.
+      writeView( req.params ).
+      then(
+        view => res.json( view )
+      ).
+      catch(
+        error => res.status( 400 ).send( error.message )
+      );
   }
 );

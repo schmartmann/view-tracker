@@ -1,28 +1,22 @@
-import { View } from './view';
-import config from '../../config';
+import { db } from '../db';
 
-const pgp = require( 'pg-promise' )();
-// const db  = pgp( config.databse_url || process.env.DATABASE_URL );
+export const writeView = ( params ) => {
+  return new Promise(
+    ( resolve, reject ) => {
+      const sqlCommand =
+        'INSERT INTO views( video_id ) VALUES( $1 ) ' +
+        'RETURNING id, video_id';
 
-const writeView = ( req, res, next ) => {
-  const { videoId } = req.body;
-
-  const sqlCommand =
-    'INSERT INTO views(video_id) VALUES($1) ' +
-    'RETURNING id, video_id';
-
-  db.one(
-    sqlCommand,
-    [ videoId ]
-  ).
-  then(
-    view => {
-      console.log( view );
-      res.view = view;
-      next();
+      db.one(
+        sqlCommand,
+        [ params.videoId ]
+      ).
+      then(
+        view => resolve( view )
+      ).
+      catch(
+        error => reject( error )
+      );
     }
-  ).
-  catch(
-    error => console.log( error )
   );
 };
