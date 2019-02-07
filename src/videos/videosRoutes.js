@@ -17,6 +17,6 @@ router.post(
 router.post(
   '/:id/views',
   ( req, res ) => {
-    res.send( 'create a new view record' )
+    res.send( 'create a new view record, kay?' )
   }
-)
+);
