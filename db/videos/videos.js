@@ -17,11 +17,9 @@ export const queryVideo = ( videoId ) => {
 };
 
 
-export const writeVideo = ( params ) => {
+export const writeVideo = ( name, brand, published ) => {
   return new Promise(
     ( resolve, reject ) => {
-      const { name, brand, published } = params;
-
       const sqlString =
         'INSERT INTO videos(name,brand,published) VALUES($1, $2, $3) ' +
         'RETURNING id, name, brand, published';
@@ -39,5 +37,3 @@ export const writeVideo = ( params ) => {
     }
   );
 };
-
-
