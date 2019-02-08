@@ -11,7 +11,7 @@ If you don't have PostgreSQL installed, you can use [ Homebrew ] ( https://githu
 Next, set up the database:
  
 - In the root of the project, run this `$ createdb view-tracker` to create a psql database called 'view-tracker'.
-- Next, load the schema: `$ psql -f db/create.sql`
+- Next, load the schema: `$ psql -f create.sql`
 - Finally, seed the database: `$ psql -f db/seeds.sql`
 
 #### Running
