@@ -32,8 +32,8 @@ export const writeView = ( id ) => {
 export const countViews = ( id ) => {
   return new Promise(
     ( resolve, reject ) => {
-        var sqlString = "SELECT COUNT( view_count ) FROM views " +
-          "WHERE video_id = $1";
+        var sqlString = 'SELECT COUNT( view_count ) FROM views ' +
+          'WHERE video_id = $1';
 
         db.one(
           sqlString,
@@ -52,16 +52,25 @@ export const countViews = ( id ) => {
 export const queryVideoViews = ( id, from ) => {
   return new Promise(
     ( resolve, reject ) => {
-      var sqlString = "SELECT views.view_count, videos.name, " +
-                      "videos.published, brands.name AS brand_name " +
-                      "FROM views INNER JOIN videos ON video_id = " +
-                      "views.video_id INNER JOIN brands ON brand_id = " +
-                      "videos.brand_id WHERE video_id = $1 " +
-                      "AND viewed >= $2 ORDER BY viewed DESC LIMIT 1";
+      var sqlString = [
+        'SELECT views.view_count, videos.name, ',
+        'videos.published, brands.name AS brand_name ',
+        'FROM views INNER JOIN videos ON video_id = ',
+        'views.video_id INNER JOIN brands ON brand_id = ',
+        'videos.brand_id WHERE video_id = $1 ',
+        'ORDER BY viewed DESC LIMIT 1'
+      ];
+
+      var sqlParams = [ id ];
+
+      if ( from ) {
+        sqlString.splice( sqlString.length - 1, 0, 'AND viewed > $2 ' );
+        sqlParams.push( from );
+      }
 
       db.one(
-        sqlString,
-        [ id, from ]
+        sqlString.join( '' ),
+        sqlParams
       ).
       then(
         view => resolve( view )
