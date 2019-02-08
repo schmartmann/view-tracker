@@ -6,7 +6,7 @@
   "author": "schmartmann <stefanhartmann@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src/server.js"
+    "start": "nodemon --exec babel-node src/server.js"
   },
   "engines": {
     "node": ">=8.0"
@@ -38,6 +38,8 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.15.3",
+    "nodemon": "^1.18.9",
+    "pg-promise": "^8.5.5",
     "pryjs": "^1.0.3"
   }
 }

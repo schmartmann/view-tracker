@@ -1,22 +1,37 @@
 import express from 'express';
-import { HttpError } from '../errors';
 
 const router = express.Router();
+import db from '../../db/db';
 
-export const register = ( app ) => {
-  app.use( '/videos', router );
+export const register = ( server ) => {
+  server.use( '/videos', router );
 };
 
 router.post(
   '/',
   ( req, res ) => {
-    res.send( 'create new video')
+    db.
+      writeVideo( req.body ).
+      then(
+        video => res.json( video )
+      ).
+      catch(
+        error => res.status( 400 ).send( error.message )
+      );
   }
 );
 
-router.post(
-  '/:id/views',
+router.get(
+  '/:id',
   ( req, res ) => {
-    res.send( 'create a new view record' )
+    db.
+      queryVideo( req.params.id ).
+      then(
+        video => res.json( video )
+      ).
+      catch(
+        error => res.status( 400 ).send( error.message )
+      );
   }
-)
+);
+
