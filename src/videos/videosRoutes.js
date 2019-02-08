@@ -10,10 +10,10 @@ export const register = ( server ) => {
 router.post(
   '/',
   ( req, res ) => {
-    const { name, brand, published } = req.body;
+    const { name, brand_id, published } = req.body;
 
     db.
-      writeVideo( name, brand, published ).
+      writeVideo( name, brand_id, published ).
       then(
         video => res.json( video )
       ).

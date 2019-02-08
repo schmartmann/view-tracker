@@ -28,28 +28,12 @@ router.get(
     const fromDate = new Date( query.from );
 
     if ( fromDate && validateDate( fromDate ) ) {
-      var queriedVideo;
 
       db.
-        queryVideo( params.videoId ).
+        queryVideoViews( params.videoId, fromDate ).
         then(
-          video => {
-            return queriedVideo = video;
-          }
-        ).
-        then(
-          video => db.queryViews( video.id, fromDate )
-        ).
-        then(
-          view => {
-            view.fromDate = fromDate;
-            return Object.assign( queriedVideo, view );
-          }
-        ).
-        then(
-          results => {
-            res.json( results )
-          }
+          video =>
+            res.json( video )
         ).
         catch(
           error => res.status( 400 ).send( error.message )
