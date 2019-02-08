@@ -21,7 +21,7 @@ export const writeView = ( id ) => {
   );
 };
 
-export const queryVideoViews = ( id, from ) => {
+export const queryVideoViews = ( id, fromDate ) => {
   return new Promise(
     ( resolve, reject ) => {
       var sqlString = [
@@ -37,7 +37,7 @@ export const queryVideoViews = ( id, from ) => {
 
       var sqlParams = [ id ];
 
-      if ( from ) {
+      if ( fromDate ) {
 
         sqlString.splice(
           1,
@@ -45,7 +45,7 @@ export const queryVideoViews = ( id, from ) => {
           '( SELECT COUNT( * ) FROM views WHERE video_id = $1 AND viewed >= $2 ) AS video_view_count, '
         );
 
-        sqlParams.push( from );
+        sqlParams.push( fromDate );
       }
 
       db.one(
@@ -54,7 +54,7 @@ export const queryVideoViews = ( id, from ) => {
       ).
       then(
         view => {
-          view.fromDate = from;
+          view.fromDate = fromDate;
           resolve( view )
         }
       ).
