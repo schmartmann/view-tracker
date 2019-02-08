@@ -17,12 +17,28 @@ Next, set up the database:
 ### Models
 
 #### Video
-Attribute    | Data Type | Validation   |  
------------- | --------- | ------------ |
-id           | int       | primary key  |
-name         | string    | required, > 5 chars  |
-brand_id     | int       | foreign key  |
-published     | date      | required |
+Attribute    | Data Type | Validation             |  
+------------ | --------- | ---------------------- |
+id           | int       | primary key            |
+name         | string    | required: > 5 chars    |
+brand_id     | int       | required: foreign key  |
+published    | date      | required               |
+
+#### View
+Attribute        | Data Type | Validation                |  
+---------------- | --------- | ------------------------- |
+id               | int       | primary key               |
+video_id         | int       | required, foreign key     |
+total_view_count | int       | serial int                |
+viewed           | date      | optional: defaults to now |
+
+### Brands
+Attribute        | Data Type | Validation                |  
+---------------- | --------- | ------------------------- |
+id               | int       | primary key               |
+name             | string    | required: > 5 chars       |
+published        | date      | optional: defaults to now |
+
 
 ### Routes
 
