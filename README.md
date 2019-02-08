@@ -16,3 +16,6 @@ Next, set up the database:
 
 #### Running
 Finally, to run the app, use `npm start` or `yarn start`. The app uses the `nodemon` package, so it will hot reload on file changes. Also `rs` will force-reload the server. 
+
+### Usage
+Check out [ API.md ]( https://github.com/schmartmann/view-tracker/blob/develop/API.md ) for information on the API's use cases.
