@@ -2,6 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 import db from '../../db/db';
+import { validateNewVideo } from './videosValidations';
 
 export const register = ( server ) => {
   server.use( '/videos', router );
@@ -9,25 +10,12 @@ export const register = ( server ) => {
 
 router.post(
   '/',
+  validateNewVideo,
   ( req, res ) => {
     const { name, brand_id, published } = req.body;
 
     db.
       writeVideo( name, brand_id, published ).
-      then(
-        video => res.json( video )
-      ).
-      catch(
-        error => res.status( 400 ).send( error.message )
-      );
-  }
-);
-
-router.get(
-  '/:id',
-  ( req, res ) => {
-    db.
-      queryVideo( req.params.id ).
       then(
         video => res.json( video )
       ).

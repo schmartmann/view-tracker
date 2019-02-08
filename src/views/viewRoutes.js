@@ -2,6 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 import db from '../../db/db';
+import { validateId, validateViewsQuery } from './viewValidations';
 
 export const register = ( server ) => {
   server.use( '/videos', router );
@@ -9,6 +10,7 @@ export const register = ( server ) => {
 
 router.post(
   '/:videoId/views',
+  validateId,
   ( req, res ) => {
     db.
       writeView( req.params.videoId ).
@@ -16,35 +18,23 @@ router.post(
         view => res.json( view )
       ).
       catch(
-        error => res.status( 400 ).send( error.message )
+        error => res.status( 400 ).send( error )
       );
   }
 );
 
 router.get(
   '/:videoId/views',
+  validateViewsQuery,
   ( req, res ) => {
-    const { params, query } = req;
-    const fromDate = new Date( query.from );
-
-    if ( fromDate && validateDate( fromDate ) ) {
-
-      db.
-        queryVideoViews( params.videoId, fromDate ).
-        then(
-          video =>
-            res.json( video )
-        ).
-        catch(
-          error => res.status( 400 ).send( error.message )
-        );
-      }
-      else {
-        res.status( 400 ).send( "'form' param must be valid date" );
-      }
+    db.
+      queryVideoViews( req.params.videoId, req.query.from ).
+      then(
+        video =>
+          res.json( video )
+      ).
+      catch(
+        error => res.status( 400 ).send( error.message )
+      );
   }
 );
-
-const validateDate = ( date ) => {
-  return !isNaN( date.valueOf() )
-};
