@@ -32,7 +32,7 @@ video_id         | int       | required, foreign key     |
 total_view_count | int       | serial int                |
 viewed           | date      | optional: defaults to now |
 
-### Brands
+#### Brands
 Attribute        | Data Type | Validation                |  
 ---------------- | --------- | ------------------------- |
 id               | int       | primary key               |
