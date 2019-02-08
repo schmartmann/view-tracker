@@ -20,6 +20,9 @@ Next, set up the database:
 Attribute    | Data Type | Validation   |  
 ------------ | --------- | ------------ |
 id           | int       | primary key  |
+name         | string    | required, > 5 chars  |
+brand_id     | int       | foreign key  |
+published     | date      | required |
 
 ### Routes
 
