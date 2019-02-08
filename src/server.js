@@ -1,8 +1,7 @@
 import { createServer } from 'http';
 import handler from './routes';
-import config from '../config';
 
-const PORT = config.port || process.env.port || 3000;
+const PORT = process.env.port || 3000;
 
 const server =
   createServer( handler ).
@@ -11,7 +10,7 @@ const server =
         () => {
           const { port } = server.address();
           console.log(
-            `*frasier crane voice* Hello localhost:${ PORT }. I'm listening.`
+            `Hello, Seattle. I'm listening.`
           );
         }
       ).

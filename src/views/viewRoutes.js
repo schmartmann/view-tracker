@@ -28,7 +28,7 @@ router.get(
   validateViewsQuery,
   ( req, res ) => {
     db.
-      queryVideoViews( req.params.videoId, req.query ).
+      queryVideoViews( req.params.videoId, req.query.from ).
       then(
         video =>
           res.json( video )

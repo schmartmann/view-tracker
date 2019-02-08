@@ -3,8 +3,6 @@ import { json as parseJsonBody } from 'body-parser';
 import { register as registerVideos } from './videos/videosRoutes';
 import { register as registerViews } from './views/viewRoutes';
 
-import config from '../config';
-
 const server = express();
 const router = express.Router();
 
