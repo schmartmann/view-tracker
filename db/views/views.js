@@ -29,19 +29,15 @@ export const writeView = ( id ) => {
   );
 };
 
-export const countViews = ( id, from ) => {
+export const countViews = ( id ) => {
   return new Promise(
     ( resolve, reject ) => {
-        from = from.toString() || '';
-
         var sqlString = "SELECT COUNT( view_count ) FROM views " +
           "WHERE video_id = $1";
 
-        if ( from ) { sqlString = sqlString.concat( " AND viewed >= $2" ); }
-
         db.one(
           sqlString,
-          [ id, from ],
+          [ id ],
         ).
         then(
           count => resolve( count )
@@ -53,13 +49,15 @@ export const countViews = ( id, from ) => {
   );
 };
 
-export const queryViews = ( id, from ) => {
+export const queryVideoViews = ( id, from ) => {
   return new Promise(
     ( resolve, reject ) => {
-
-      var sqlString = "SELECT view_count FROM views " +
-        "WHERE video_id = $1 AND viewed >= $2 " +
-        "ORDER BY viewed DESC LIMIT 1";
+      var sqlString = "SELECT views.view_count, videos.name, " +
+                      "videos.published, brands.name AS brand_name " +
+                      "FROM views INNER JOIN videos ON video_id = " +
+                      "views.video_id INNER JOIN brands ON brand_id = " +
+                      "videos.brand_id WHERE video_id = $1 " +
+                      "AND viewed >= $2 ORDER BY viewed DESC LIMIT 1";
 
       db.one(
         sqlString,
