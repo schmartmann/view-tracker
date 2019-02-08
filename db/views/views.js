@@ -26,7 +26,7 @@ export const queryVideoViews = ( id, from ) => {
     ( resolve, reject ) => {
       var sqlString = [
         'SELECT ',
-        'views.view_count, ',
+        'views.total_view_count, ',
         'videos.name, ',
         'videos.published, ',
         'brands.name AS brand_name ',
@@ -39,7 +39,9 @@ export const queryVideoViews = ( id, from ) => {
 
       if ( from ) {
 
-        sqlString.splice( 1, 1,
+        sqlString.splice(
+          1,
+          1,
           '( SELECT COUNT( * ) FROM views WHERE video_id = $1 AND viewed >= $2 ) AS video_view_count, '
         );
 
