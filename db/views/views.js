@@ -3,18 +3,18 @@ import { db } from '../db';
 export const writeView = ( id ) => {
   return new Promise(
     ( resolve, reject ) => {
-      videoViewCount( id ).
+      countViews( id ).
       then(
         viewCount => {
 
           viewCount.count++;
 
-          const sqlCommand =
+          const sqlString =
             'INSERT INTO views( video_id, view_count, viewed ) VALUES( $1, $2, $3 ) ' +
             'RETURNING id, video_id, view_count, viewed';
 
           db.one(
-            sqlCommand,
+            sqlString,
             [ id, viewCount.count, new Date() ]
           ).
           then(
@@ -29,12 +29,22 @@ export const writeView = ( id ) => {
   );
 };
 
-const videoViewCount = ( id ) => {
+export const countViews = ( id, from ) => {
   return new Promise(
     ( resolve, reject ) => {
+        from = from.toString() || '';
+
+        var sqlString = "SELECT COUNT( view_count ) FROM views " +
+          "WHERE video_id = $1";
+
+
+        if ( from ) { sqlString = sqlString.concat( " AND viewed >= $2" ); }
+
+        console.log( sqlString )
+
         db.one(
-          "SELECT COUNT( view_count ) FROM views WHERE video_id = $1",
-          id
+          sqlString,
+          [ id, from ],
         ).
         then(
           count => resolve( count )
@@ -45,8 +55,3 @@ const videoViewCount = ( id ) => {
     }
   );
 };
-
-
-const queryViews = ( id ) => {
-
-}

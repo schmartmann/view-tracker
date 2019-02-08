@@ -22,12 +22,12 @@ export const writeVideo = ( params ) => {
     ( resolve, reject ) => {
       const { name, brand, published } = params;
 
-      const sqlCommand =
+      const sqlString =
         'INSERT INTO videos(name,brand,published) VALUES($1, $2, $3) ' +
         'RETURNING id, name, brand, published';
 
       db.one(
-        sqlCommand,
+        sqlString,
         [ name, brand, published ]
       ).
       then(

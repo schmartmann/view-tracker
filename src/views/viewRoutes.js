@@ -21,4 +21,36 @@ router.post(
   }
 );
 
+router.get(
+  '/:videoId/views',
+  ( req, res ) => {
+    const { params, query } = req;
 
+    var queriedVideo;
+
+    db.
+      queryVideo( params.videoId ).
+      then(
+        video => {
+          return queriedVideo = video;
+        }
+      ).
+      then(
+        video => db.countViews( video.id, query.from )
+      ).
+      then(
+        count => {
+          count.fromDate = query.from;
+          return Object.assign( queriedVideo, count );
+        }
+      ).
+      then(
+        results => {
+          res.json( results )
+        }
+      ).
+      catch(
+        error => res.status( 400 ).send( error.message )
+      );
+  }
+);

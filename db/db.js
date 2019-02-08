@@ -1,5 +1,5 @@
 import config from '../config';
-import { writeView } from './views/views';
+import { writeView, countViews } from './views/views';
 import { queryVideo, writeVideo } from './videos/videos';
 
 const pgp = require( 'pg-promise' )();
@@ -9,5 +9,6 @@ module.exports = {
   db,
   queryVideo,
   writeVideo,
-  writeView
+  writeView,
+  countViews
 };
