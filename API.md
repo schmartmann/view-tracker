@@ -15,10 +15,11 @@ Next, set up the database:
 - Finally, seed the database: `$ psql -f db/seeds.sql`
 
 ### Models
-First Header | Second Header
------------- | -------------
-Content cell 1 | Content cell 2
-Content column 1 | Content column 2
+
+#### Video
+Attribute    | Data Type | Validation   |  
+------------ | --------- | ------------ |
+id           | int       | primary key  |
 
 ### Routes
 
