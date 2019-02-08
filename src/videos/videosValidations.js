@@ -1,16 +1,27 @@
 import { isValidId, isValidName, isValidDate } from '../validations/datatypeValidations';
 
 export const validateNewVideo = ( req, res, next ) => {
-  const validations = [
-    isValidId( req.body.brand_id ),
-    isValidName( req.body.name ),
-    isValidDate( req.body.published )
-  ];
+  var validId = isValidId( req.body.brand_id );
+  var validName = isValidName( req.body.name );
+  var validPublished = isValidDate( req.body.published );
+  var err = '';
 
-  if ( validations.includes( false ) ) {
-    res.status( 422 ).send( 'Bad params!' );
+  if ( !validId ) {
+    err += `Bad id: '${ req.body.id }'\n`;
+  }
+
+  if ( !validName ) {
+    err += `Bad name: '${ req.body.name }'\n`;
+  }
+
+  if ( !validPublished ) {
+    err += `Bad date: '${ req.body.published }'\n`;
+  }
+
+  if ( validId && validName && validPublished ) {
+    return next();
   }
   else {
-    return next();
+    res.status( 422 ).send( err )
   }
 };

@@ -1,11 +1,11 @@
 import { isValidId, isValidDate } from '../validations/datatypeValidations';
 
 export const validateId = ( req, res, next ) => {
-  if ( isValidId( req.params.videoId ) ) {
-    return next();
+  if ( !isValidId( req.params.videoId ) ) {
+    res.status( 422 ).send( `Bad id: '${ req.params.videoId }'` );
   }
   else {
-    res.status( 422 ).send( 'Bad params!' );
+    return next();
   }
 };
 
