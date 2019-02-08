@@ -37,10 +37,7 @@ export const countViews = ( id, from ) => {
         var sqlString = "SELECT COUNT( view_count ) FROM views " +
           "WHERE video_id = $1";
 
-
         if ( from ) { sqlString = sqlString.concat( " AND viewed >= $2" ); }
-
-        console.log( sqlString )
 
         db.one(
           sqlString,
@@ -52,6 +49,28 @@ export const countViews = ( id, from ) => {
         catch(
           error => reject( error )
         );
+    }
+  );
+};
+
+export const queryViews = ( id, from ) => {
+  return new Promise(
+    ( resolve, reject ) => {
+
+      var sqlString = "SELECT view_count FROM views " +
+        "WHERE video_id = $1 AND viewed >= $2 " +
+        "ORDER BY viewed DESC LIMIT 1";
+
+      db.one(
+        sqlString,
+        [ id, from ]
+      ).
+      then(
+        view => resolve( view )
+      ).
+      catch(
+        error => reject( error )
+      );
     }
   );
 };

@@ -10,8 +10,10 @@ export const register = ( server ) => {
 router.post(
   '/',
   ( req, res ) => {
+    const { name, brand, published } = req.body;
+
     db.
-      writeVideo( req.body ).
+      writeVideo( name, brand, published ).
       then(
         video => res.json( video )
       ).
@@ -34,4 +36,3 @@ router.get(
       );
   }
 );
-

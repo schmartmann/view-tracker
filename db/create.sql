@@ -3,8 +3,8 @@ DROP TABLE IF EXISTS videos;
 
 CREATE TABLE videos (
   id SERIAL PRIMARY KEY,
-  name VARCHAR( 255 ) UNIQUE NOT NULL,
-  brand VARCHAR( 255 ) NOT NULL,
+  name VARCHAR( 255 ) UNIQUE NOT NULL CHECK( length( name ) >= 5 ),
+  brand VARCHAR( 255 ) NOT NULL CHECK( length( brand ) >= 5 ),
   published TIMESTAMP NOT NULL
 );
 
