@@ -35,5 +35,5 @@ Action           | Path                                 | Params                
 ---------------- | ------------------------             | ------------------------- | ------------------ |
 **POST**         | `/videos`                            | name, brand_id, published | new video resource |
 **POST**         | `/videos/:videoId/views`             | videoId                   | new view resource  |
-**GET**          | `/videos/:videoId/views?from=<date>` | videoId, optional: from                   | video resource with view count, optionally scoped from date (inclusive)  |
+**GET**          | `/videos/:videoId/views?from=<date>` | videoId, optional:[ from ]                   | video resource with view count, optionally scoped from date (inclusive)  |
 
